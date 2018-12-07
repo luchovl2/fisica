@@ -1,0 +1,7 @@
+bloque -masa 0.1 -posx 2 -posy 2 -ancho 0.8 -alto 0.4
+
+rueda -masa 0.2 -posx 3 -posy 2.6 -radio 0,2
+
+rampa -posx 5 -posy 0 -ancho 1 -alto 0.5
+
+rampa -posx 7 -posy 0 -ancho 1 -alto 3.5

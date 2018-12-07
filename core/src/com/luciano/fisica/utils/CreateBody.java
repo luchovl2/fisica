@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.joints.PulleyJointDef;
 
 import static com.luciano.fisica.utils.Constants.PPM;
 
@@ -123,5 +124,19 @@ public class CreateBody
         fixdef.restitution = body.getFixtureList().get(0).getRestitution();
 
         body.createFixture(fixdef);
+    }
+
+    public static void agregarPolea(World world, Body bodyA, Body bodyB, Body groundA, Body groundB)
+    {
+        PulleyJointDef jointDef = new PulleyJointDef();
+        jointDef.initialize(bodyA, bodyB,
+                groundA.getWorldCenter(),
+                groundB.getWorldCenter(),
+                bodyA.getWorldCenter(),
+                bodyB.getWorldCenter(),
+                1);
+        jointDef.lengthA = 0.5f + groundA.getPosition().dst(jointDef.groundAnchorB);
+        jointDef.lengthB = 0.4f;
+        world.createJoint(jointDef);
     }
 }

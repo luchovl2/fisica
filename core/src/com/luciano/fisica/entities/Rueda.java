@@ -9,11 +9,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.luciano.fisica.utils.Constants;
 import com.luciano.fisica.utils.CreateBody;
 
-public class Rueda
+public class Rueda extends Entidad
 {
-    private Sprite sprite;
-    public Body body;
-
     public Rueda(World world, Vector2 pos, float radius)
     {
         sprite = new Sprite(new Texture(Constants.RUEDA_TEXTURE));
@@ -27,15 +24,4 @@ public class Rueda
     {
 
     }
-
-    public void render(SpriteBatch batch)
-    {
-        if(sprite != null && body != null)
-        {
-            sprite.setCenter(body.getPosition().x, body.getPosition().y);
-            sprite.setRotation(body.getAngle());
-            sprite.draw(batch);
-        }
-    }
-
 }

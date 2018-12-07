@@ -161,7 +161,7 @@ public class FisicaUI implements ActionListener
                 float pendiente = Float.valueOf(textPendiente.getText().trim());
                 float alto = Float.valueOf(textAlto.getText().trim());
                 float ancho = Float.valueOf(textAncho.getText().trim());
-
+/*
                 if(agregarForma == FisicaScreen.Formas.CAJA)
                 {
                     FisicaGame.screen.agregarCuerpo(posX, posY, ancho, alto, FisicaScreen.Formas.CAJA);
@@ -189,7 +189,7 @@ public class FisicaUI implements ActionListener
                     Body groundB = FisicaGame.screen.obstaculos.get(2).body;
 
                     FisicaGame.screen.agregarPolea(bodyA, bodyB, groundA, groundB);
-                }
+                }*/
             }
         }
     }

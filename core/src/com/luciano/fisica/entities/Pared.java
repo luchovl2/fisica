@@ -9,10 +9,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.luciano.fisica.utils.Constants;
 import com.luciano.fisica.utils.CreateBody;
 
-public class Pared
+public class Pared extends Entidad
 {
-    private Sprite sprite;
-    private Body body;
     private World world;
 
     public Pared(World world, Vector2 pos, float width, float height)
@@ -35,14 +33,5 @@ public class Pared
                 height,
                 Constants.PARED_ROZAMIENTO,
                 true);
-    }
-
-    public void render(SpriteBatch batch)
-    {
-        if(sprite != null && body != null)
-        {
-            sprite.setCenter(body.getPosition().x, body.getPosition().y);
-            sprite.draw(batch);
-        }
     }
 }

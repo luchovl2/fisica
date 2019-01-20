@@ -2,10 +2,10 @@ package com.luciano.fisica.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.luciano.fisica.entities.Bloque;
+import com.luciano.fisica.entities.Polea;
 import com.luciano.fisica.entities.Rampa;
 import com.luciano.fisica.entities.Rueda;
 
@@ -17,8 +17,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.regex.Pattern;
 
-import javax.print.DocFlavor;
-
 public class FileLoader
 {
     //busca un archivo con un nombre y extensión específicos ("scene.txt")
@@ -27,6 +25,7 @@ public class FileLoader
     static private Array<Bloque> bloques = null;
     static private Array<Rueda> ruedas = null;
     static private Array<Rampa> rampas = null;
+    static private Array<Polea> poleas = null;
 
     static public void loadSceneFile(World world){
         Path path = Paths.get("scene.txt");
@@ -48,6 +47,7 @@ public class FileLoader
                     Pattern bloquePattern = Pattern.compile("^(bloque)");
                     Pattern ruedaPattern = Pattern.compile("^(rueda)");
                     Pattern rampaPattern = Pattern.compile("^(rampa)");
+                    Pattern poleaPattern = Pattern.compile("^(polea)");
 
                     while((line = reader.readLine()) != null)
                     {
@@ -67,6 +67,11 @@ public class FileLoader
                         {
                             Gdx.app.log("ARCHIVO", "linea con rampa");
                             loadRampa(line, world);
+                        }
+                        else if(poleaPattern.matcher(line).find())
+                        {
+                            Gdx.app.log("ARCHIVO", "linea con polea");
+                            loadPolea(line, world);
                         }
                     }
                 } catch (IOException e)
@@ -178,6 +183,11 @@ public class FileLoader
             ruedas = new Array<Rueda>();
         }
         ruedas.add(rueda);
+    }
+
+    static private void loadPolea(String line, World world)
+    {
+        //Polea polea = new Polea(world, new Vector2(2f, 3f));
     }
 
     static private void loadRampa(String line, World world)

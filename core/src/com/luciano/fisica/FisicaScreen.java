@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.luciano.fisica.entities.Bloque;
 import com.luciano.fisica.entities.Pared;
+import com.luciano.fisica.entities.Polea;
 import com.luciano.fisica.entities.Rampa;
 import com.luciano.fisica.entities.Rueda;
 import com.luciano.fisica.utils.Constants;
@@ -48,6 +49,7 @@ public class FisicaScreen extends ScreenAdapter
     private Array<Bloque> bloques;
     private Array<Rueda> ruedas;
     private Array<Rampa> rampas;
+    private Array<Polea> poleas;
 
     private boolean pause;
     private int cuerpoActual = -1;
@@ -90,17 +92,21 @@ public class FisicaScreen extends ScreenAdapter
         bloques = new Array<Bloque>();
         ruedas = new Array<Rueda>();
         rampas = new Array<Rampa>();
+        poleas = new Array<Polea>();
 
         //cargar el archivo de escenario
         FileLoader.loadSceneFile(world);
 
-        //ruedas.add(new Rueda(world, new Vector2(1, 1), 0.2f));
         ruedas.addAll(FileLoader.getRuedas());
-
-        //bloques.add(new Bloque(world, new Vector2(4, 2), 1f, 0.6f, 0f));
         bloques.addAll(FileLoader.getBloques());
-
         rampas.addAll(FileLoader.getRampas());
+
+        poleas.add(new Polea(world,
+                new Vector2(1.5f, 3f),
+                bloques.get(0),
+                ruedas.get(0),
+                0.4f));
+
     }
 
     @Override
@@ -134,6 +140,8 @@ public class FisicaScreen extends ScreenAdapter
         for(Rampa rampa: rampas)
             rampa.render(batch);
 
+        for(Polea polea: poleas)
+            polea.render(batch);
         batch.end();
 
         debugRenderer.render(world, viewport.getCamera().combined);
@@ -160,6 +168,9 @@ public class FisicaScreen extends ScreenAdapter
         {
             world.step(1 / 60f, 6, 2);
             hud.update(1/60f);
+            hud.setEntityState(ruedas.get(0).body.getPosition(),
+                    ruedas.get(0).body.getLinearVelocity(),
+                    1/60f);
         }
 
         inputUpdate(delta);
